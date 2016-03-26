@@ -4,7 +4,10 @@
 # ./remove-old.sh /var/log 90
 # v2
 
-PATH=$1
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+DEST=$1
 
 # if day empty
 if [[ -z $2 ]]; then
@@ -15,19 +18,19 @@ fi
 
 # delete empty directories
 del_empty_dir(){
-    /usr/bin/find $PATH -empty -type d -delete >/dev/null 2>&1
+    find $DEST -empty -type d -delete >/dev/null 2>&1
     # echo Empty folders removed!
 }
 
 # delete empty files
 del_empty_files(){
-    /usr/bin/find $PATH -empty -type f -delete >/dev/null 2>&1
+    find $DEST -empty -type f -delete >/dev/null 2>&1
     # echo Empty files removed!
 }
 
 # try delete all
 del(){
-    /usr/bin/find $PATH $OLD -exec /usr/bin/rm -rf '{}' \; >/dev/null 2>&1
+    find $DEST $OLD -exec rm -rf '{}' \; >/dev/null 2>&1
 }
 
 del
