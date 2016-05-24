@@ -48,7 +48,7 @@ else
     del(){
     # find $DEST $OLD -exec rm -rf '{}' \; >/dev/null 2>&1
     # find $DEST/* -mtime +$OLD -print0 | xargs -0 rm -rf 2>&1 >/dev/null
-    find $DEST -mtime +$OLD -print0 | xargs -0 rm -rf 2>&1 >/dev/null
+    find $DEST -depth 1 -mtime +$OLD -print0 | xargs -0 rm -rf 2>&1 >/dev/null
     }
 
     del
