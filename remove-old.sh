@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Author: Yevgeniy Goncharov aka xck, http://sys-admin.kz
-# ./remove-old.sh /var/log 90
+# ./remove-old.sh /var/log/* 90
 # v2
 
 SHELL=/bin/sh
@@ -20,7 +20,7 @@ fi
 
 # arguments is empty
 if [ -z $1 ] || [ -z $2 ] ; then
-  echo "Please use script with example - ./remove-old.sh /var/log 90"
+  echo "Please use script with example - ./remove-old.sh /var/log/* 90"
 else
 
   DEST=$1
@@ -33,14 +33,14 @@ else
     # delete empty and hidden directories
     del_empty_dir(){
       find $DEST -empty -type d -delete >/dev/null 2>&1
-      find $DEST -type d -name ".*" -delete >/dev/null 2>&1
+      find $DEST -type d -name ".*" -exec rm -rf '{}' \; >/dev/null 2>&1
     # echo Empty folders removed!
     }
 
     # delete empty and hidden files
     del_empty_files(){
       find $DEST -empty -type f -delete >/dev/null 2>&1
-      find $DEST -type f -name ".*" -delete >/dev/null 2>&1
+      find $DEST -type f -name ".*" -exec rm -rf '{}' \; >/dev/null 2>&1
     # echo Empty files removed!
     }
 
@@ -48,7 +48,7 @@ else
     del(){
     # find $DEST $OLD -exec rm -rf '{}' \; >/dev/null 2>&1
     # find $DEST/* -mtime +$OLD -print0 | xargs -0 rm -rf 2>&1 >/dev/null
-    find $DEST -mindepth 1 -mtime +$OLD -print0 | xargs -0 rm -rf 2>&1 >/dev/null
+    find $DEST -mtime +$OLD -print0 | xargs -0 rm -rf 2>&1 >/dev/null
     }
 
     del
