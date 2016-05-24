@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Author: Yevgeniy Goncharov aka xck, http://sys-admin.kz
-# ./remove-old.sh /var/log 90
+# ./remove-old.sh /var/log/* 90
 # v2
 
 SHELL=/bin/sh
@@ -20,7 +20,7 @@ fi
 
 # arguments is empty
 if [ -z $1 ] || [ -z $2 ] ; then
-  echo "Please use script with example - ./remove-old.sh /var/log 90"
+  echo "Please use script with example - ./remove-old.sh /var/log/* 90"
 else
 
   DEST=$1
